@@ -64,7 +64,7 @@ const Home: NextPage = () => {
     // Set loading has started
     setIsGenerating(true);
     const prompt = `${
-      me ? "Portrait of moinbukh, in the style of " : "Portrait of "
+      me ? "Portrait of moinbukh, style of " : "Portrait of "
     }${input.trim()}, intricate, beautiful, HDR, 8k, artstation.`;
 
     if (retry > 0) {
@@ -112,7 +112,6 @@ const Home: NextPage = () => {
     const data = (await response.json()) as GenerateActionResponse;
     console.log("hello");
     setFinalPrompt(input);
-    setInput("");
     setImg(data.image);
     setIsGenerating(false);
   };
@@ -268,6 +267,18 @@ const Home: NextPage = () => {
               <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
                 <Image
                   className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
+                  src={img6}
+                  width={512}
+                  height={512}
+                  alt=""
+                />
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-2 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
+                  Passport Photo
+                </div>
+              </div>
+              <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
+                <Image
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
                   src={img1}
                   width={512}
                   height={512}
@@ -277,19 +288,19 @@ const Home: NextPage = () => {
                   Peaky Blinders
                 </div>
               </div>
-
               <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
                 <Image
                   className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
-                  src={img2}
+                  src={img4}
                   width={512}
                   height={512}
                   alt=""
                 />
-                <div className="absolute inset-0 z-10 flex items-end justify-center pb-3 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
-                  Anime, Studio Ghibli
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-2 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
+                  Van Gogh
                 </div>
               </div>
+              
               <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
                 <Image
                   className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
@@ -306,15 +317,16 @@ const Home: NextPage = () => {
               <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
                 <Image
                   className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
-                  src={img4}
+                  src={img2}
                   width={512}
                   height={512}
                   alt=""
                 />
-                <div className="absolute inset-0 z-10 flex items-end justify-center pb-2 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
-                  Van Gogh
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-3 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
+                  Anime, Studio Ghibli
                 </div>
               </div>
+              
               <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
                 <Image
                   className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
@@ -325,18 +337,6 @@ const Home: NextPage = () => {
                 />
                 <div className="absolute inset-0 z-10 flex items-end justify-center pb-2 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
                   Cubism
-                </div>
-              </div>
-              <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
-                <Image
-                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
-                  src={img6}
-                  width={512}
-                  height={512}
-                  alt=""
-                />
-                <div className="absolute inset-0 z-10 flex items-end justify-center pb-2 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
-                  Passport Photo
                 </div>
               </div>
             </div>
