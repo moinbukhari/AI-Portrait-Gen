@@ -11,7 +11,7 @@ const bufferToBase64 = (buffer: ArrayBuffer) => {
 const generateAction = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("Received request");
   interface MyRequestBody {
-    input: string;
+    prompt: string;
   }
   interface _503Error{
     "error":string,
@@ -19,9 +19,9 @@ const generateAction = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const body = JSON.parse(req.body as string) as MyRequestBody;
-  const input = body.input
+  const prompt = body.prompt
 
-  console.log(input);
+  console.log(prompt);
   if (process.env.HF_AUTH_KEY) {
     const response = await fetch(
       `https://api-inference.huggingface.co/models/moinbukhari/sd-15-2-moin`,
@@ -33,7 +33,7 @@ const generateAction = async (req: NextApiRequest, res: NextApiResponse) => {
         },
         method: "POST",
         body: JSON.stringify({
-          inputs: input,
+          inputs: prompt,
         }),
       }
     );

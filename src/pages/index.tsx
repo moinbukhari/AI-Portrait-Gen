@@ -1,7 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import img1 from "../assets/peaky.png";
+import img2 from "../assets/ghibli.png";
+import img3 from "../assets/grayscale.jpg";
+import img4 from "../assets/vangogh.png";
+import img5 from "../assets/cubism.png";
+import img6 from "../assets/passport.png";
+import { Toaster, toast } from "react-hot-toast";
+import download from "downloadjs";
 
 const Home: NextPage = () => {
   const [input, setInput] = useState("");
@@ -12,11 +23,25 @@ const Home: NextPage = () => {
   const [retryCount, setRetryCount] = useState(maxRetries);
   const [isGenerating, setIsGenerating] = useState(false);
   const [finalPrompt, setFinalPrompt] = useState("");
+  const [me, setMe] = useState(true);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
+  const handleDownload = () => {
+    // create a text file with the markdown content
+    download(img, "moin_potrait.png", "image/png");
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    toast("Portrait Downloaded", {
+      icon: "🤘",
+    });
+  };
+
+  const handleMe = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isTrueSet = e.target.value === "true";
+    setMe(isTrueSet);
+  };
 
   const generateAction = async (): Promise<void> => {
     interface GenerateActionResponse {
@@ -38,6 +63,9 @@ const Home: NextPage = () => {
 
     // Set loading has started
     setIsGenerating(true);
+    const prompt = `${
+      me ? "Portrait of moinbukh, in the style of " : "Portrait of "
+    }${input.trim()}, intricate, beautiful, HDR, 8k, artstation.`;
 
     if (retry > 0) {
       setRetryCount((prevState) => {
@@ -56,12 +84,19 @@ const Home: NextPage = () => {
       headers: {
         "Content-Type": "image/jpeg",
       },
-      body: JSON.stringify({ input }),
+      body: JSON.stringify({ prompt }),
     });
 
     if (response.status === 503) {
       const data = (await response.json()) as GenerateAction503ErrorResponse;
       setRetry(data.estimated_time);
+
+      if (retryCount === maxRetries) {
+        toast("Loading model, this might take a minute", {
+          icon: "⌛",
+        });
+      }
+
       console.log("Model is loading still :(.");
       return;
     }
@@ -110,7 +145,7 @@ const Home: NextPage = () => {
     }
 
     void runRetry();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [retry]);
 
   return (
@@ -121,73 +156,192 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          toastOptions={{ duration: 2000 }}
+        />
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-            <span className="text-[hsl(280,100%,70%)]">AI</span> Portrait
-            Generator
+            Moin&apos;s
+            <span className="text-[hsl(280,100%,70%)]"> AI</span> Portrait
           </h1>
 
-          <h2 className="text-2xl font-bold text-yellow-50">
-            Turn me into anyone you want
-          </h2>
+          <div className="flex flex-col items-center justify-center gap-8">
+            <h2 className="text-2xl font-bold text-yellow-50">
+              What do you want to generate an image of?
+            </h2>
 
-          <input
-            value={input}
-            onChange={handleInputChange}
-            className="sm:text-md block w-full max-w-screen-md rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-          ></input>
-          <button
-            className={
-              isGenerating
-                ? "btn-custom opacity-70 duration-[500ms,800ms] hover:cursor-not-allowed"
-                : "btn-custom"
-            }
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            onClick={generateAction}
-          >
-            <div className="flex flex-shrink-0 transform-none flex-col justify-start outline-none ">
-              {isGenerating ? (
-                <div className="flex gap-3">
-                  <div className="my-auto h-5 w-5  animate-spin rounded-full border-4 border-solid border-white border-t-transparent"></div>
-                  <div className="my-auto -mx-1"> Generating... </div>
+            <ul className="flex flex-wrap gap-4">
+              <label className="cursor-pointer ">
+                <input
+                  type="radio"
+                  name="option"
+                  value="true"
+                  className="peer sr-only"
+                  onChange={handleMe}
+                  checked={me === true}
+                />
+                <div className="w-30 max-w-xl rounded-md bg-white p-5 text-gray-700 ring-2 ring-gray-200 hover:shadow-md peer-checked:bg-violet-400 peer-checked:ring-violet-600 peer-checked:ring-offset-2">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-semibold uppercase">Me</p>
+                  </div>
                 </div>
-              ) : (
-                <p>Generate Potrait</p>
-              )}
-            </div>
-          </button>
-          {/* <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/usage/first-steps"
-              target="_blank"
+              </label>
+              <label className="cursor-pointer ">
+                <input
+                  type="radio"
+                  name="option"
+                  value="false"
+                  className="peer sr-only"
+                  onChange={handleMe}
+                  checked={me === false}
+                />
+                <div className="w-30 max-w-xl rounded-md bg-white p-5 text-gray-700 ring-2 ring-gray-200 hover:shadow-md peer-checked:bg-violet-400 peer-checked:ring-violet-600 peer-checked:ring-offset-2">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-semibold uppercase text-gray-700">
+                      Anything Else
+                    </p>
+                  </div>
+                </div>
+              </label>
+            </ul>
+          </div>
+
+          <div className="flex flex-col items-center justify-center gap-4">
+            <h2 className="text-2xl font-bold text-yellow-50">
+              Generate a portrait of{" "}
+              {me ? "me in the style of:" : "anything else:"}
+            </h2>
+
+            <input
+              value={input}
+              onChange={handleInputChange}
+              className="sm:text-md block w-full max-w-screen-sm rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            ></input>
+            <button
+              className={
+                isGenerating
+                  ? "btn-custom opacity-70 duration-[500ms,800ms] hover:cursor-not-allowed"
+                  : "btn-custom"
+              }
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              onClick={generateAction}
             >
-              <h3 className="text-2xl font-bold">First Steps →</h3>
-              <div className="text-lg">
-                Just the basics - Everything you need to know to set up your
-                database and authentication.
+              <div className="flex flex-shrink-0 transform-none flex-col justify-start outline-none ">
+                {isGenerating ? (
+                  <div className="flex gap-3">
+                    <div className="my-auto h-5 w-5  animate-spin rounded-full border-4 border-solid border-white border-t-transparent"></div>
+                    <div className="my-auto -mx-1"> Generating... </div>
+                  </div>
+                ) : (
+                  <p>
+                    {img ? "Generate Another Portrait" : "Generate Potrait"}
+                  </p>
+                )}
               </div>
-            </Link>
-            <Link
-              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-              href="https://create.t3.gg/en/introduction"
-              target="_blank"
-            >
-              <h3 className="text-2xl font-bold">Documentation →</h3>
-              <div className="text-lg">
-                Learn more about Create T3 App, the libraries it uses, and how
-                to deploy it.
-              </div>
-            </Link>
-          </div> */}
+            </button>
+          </div>
 
           {img && (
-            <div className="bg-rose-300">
-              <Image src={img} width={512} height={512} alt={input} />
-              <p>{finalPrompt}</p>
+            <div className="flex flex-col items-center gap-4">
+              <div className=" flex flex-col items-center gap-4 rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg">
+                <Image src={img} width={512} height={512} alt={input} />
+                {/* <p>{finalPrompt}</p> */}
+              </div>
+              <button
+                className="inline-block w-fit rounded-lg bg-gray-400 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-gray-500 hover:bg-rose-500 hover:ring-rose-500"
+                onClick={handleDownload}
+              >
+                Download Portrait
+              </button>
             </div>
           )}
         </div>
+
+        {me && (
+          <div className="m-8 flex flex-col items-center justify-center gap-14">
+            <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
+              Gallery
+            </h1>
+            <div className="flex flex-wrap">
+              <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
+                <Image
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
+                  src={img1}
+                  width={512}
+                  height={512}
+                  alt=""
+                />
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-3 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
+                  Peaky Blinders
+                </div>
+              </div>
+
+              <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
+                <Image
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
+                  src={img2}
+                  width={512}
+                  height={512}
+                  alt=""
+                />
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-3 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
+                  Anime, Studio Ghibli
+                </div>
+              </div>
+              <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
+                <Image
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
+                  src={img3}
+                  width={512}
+                  height={512}
+                  alt=""
+                />
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-2 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
+                  Mafia, Grayscale
+                </div>
+              </div>
+
+              <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
+                <Image
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
+                  src={img4}
+                  width={512}
+                  height={512}
+                  alt=""
+                />
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-2 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
+                  Van Gogh
+                </div>
+              </div>
+              <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
+                <Image
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
+                  src={img5}
+                  width={512}
+                  height={512}
+                  alt=""
+                />
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-2 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
+                  Cubism
+                </div>
+              </div>
+              <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
+                <Image
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
+                  src={img6}
+                  width={512}
+                  height={512}
+                  alt=""
+                />
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-2 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
+                  Passport Photo
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </>
   );
