@@ -21,7 +21,7 @@ The most exciting part of this project development has been to see the various a
 
 ## Demo 🎥
 
-![Demo](https://github.com/moinbukhari/AI-Portrait-Gen/src/assets/PortraitGen.png)
+![Demo](https://github.com/moinbukhari/AI-Potrait-Gen/blob/main/src/assets/PortraitGen.png)
 
 
 
