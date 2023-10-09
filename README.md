@@ -19,9 +19,10 @@ The most exciting part of this project development has been to see the various a
 - HuggingFace
 - Stable Diffusion
 
-## Demo
+## Example
 
-![Demo](https://github.com/moinbukhari/AI-Potrait-Gen/blob/main/src/assets/PortraitGen.png)
+![Example](https://github.com/moinbukhari/AI-Potrait-Gen/blob/main/src/assets/PortraitGen.png)
+
 
 
 
