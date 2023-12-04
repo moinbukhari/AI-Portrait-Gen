@@ -1,28 +1,27 @@
-# Create T3 App
+# AI Portrait Generator 🎨
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+An application that allows users to create stylized portraits based on a trained model.
 
-## What's next? How do I make an app with this?
+## Process and Goal 💪
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+The AI Portrait Generator is meant to empower users with the ability to create artistic and stylized portraits of me, or any other image they desire. 
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+The development of this project involved utilizing a Dreambooth model that I trained with my own images. This model, aptly combined with the [HuggingFace's](https://huggingface.co/) Machine Learning capabilities and [Stable Diffusion](https://stability.ai/blog/stable-diffusion-public-release), enables users to generate portraits in any style they want.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+The project uses the [NextJS](https://nextjs.org/) framework and was initialised using the T3 Stack. In combination with NextJS, it uses [TypeScript](https://www.typescriptlang.org/) and [TailwindCSS](https://tailwindcss.com/), for a smooth and efficient development process. The final project is deployed using [Railway](https://railway.app/).
 
-## Learn More
+The most exciting part of this project development has been to see the various artistic portraits created by users. Utilizing the app's capabilities, users can generate unique, vibrant, and stylistically varied images, which has been an absolute delight to witness.
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Tools ⚒️
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+- NextJS, TypeScript, TailwindCSS
+- HuggingFace, Stable Diffusion, Google Colab
 
-## How do I deploy this?
+## Example
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+![Example](https://github.com/moinbukhari/AI-Potrait-Gen/blob/main/src/assets/PortraitGen.png)
+
+
+
+
