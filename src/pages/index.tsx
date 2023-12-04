@@ -231,7 +231,7 @@ const Home: NextPage = () => {
                 {isGenerating ? (
                   <div className="flex gap-3">
                     <div className="my-auto h-5 w-5  animate-spin rounded-full border-4 border-solid border-white border-t-transparent"></div>
-                    <div className="my-auto -mx-1"> Generating... </div>
+                    <div className="-mx-1 my-auto"> Generating... </div>
                   </div>
                 ) : (
                   <p>
@@ -259,38 +259,14 @@ const Home: NextPage = () => {
         </div>
 
         {me && (
-          <div className="m-8 flex flex-col items-center justify-center gap-14">
+          <div className="m-8 flex max-w-6xl flex-col items-center justify-center gap-14">
             <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
               Gallery
             </h1>
-            <div className="flex flex-wrap">
+            <div className="flex w-full flex-wrap justify-center">
               <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
                 <Image
-                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
-                  src={img6}
-                  width={512}
-                  height={512}
-                  alt=""
-                />
-                <div className="absolute inset-0 z-10 flex items-end justify-center pb-2 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
-                  Passport Photo
-                </div>
-              </div>
-              <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
-                <Image
-                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
-                  src={img1}
-                  width={512}
-                  height={512}
-                  alt=""
-                />
-                <div className="absolute inset-0 z-10 flex items-end justify-center pb-3 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
-                  Peaky Blinders
-                </div>
-              </div>
-              <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
-                <Image
-                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-4 shadow-lg sm:p-6 "
                   src={img4}
                   width={512}
                   height={512}
@@ -300,10 +276,23 @@ const Home: NextPage = () => {
                   Van Gogh
                 </div>
               </div>
-              
+
               <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
                 <Image
-                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-4 shadow-lg sm:p-6 "
+                  src={img1}
+                  width={512}
+                  height={512}
+                  alt=""
+                />
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-3 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
+                  Peaky Blinders
+                </div>
+              </div>
+
+              <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
+                <Image
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-4 shadow-lg sm:p-6 "
                   src={img3}
                   width={512}
                   height={512}
@@ -316,7 +305,7 @@ const Home: NextPage = () => {
 
               <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
                 <Image
-                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-4 shadow-lg sm:p-6 "
                   src={img2}
                   width={512}
                   height={512}
@@ -326,10 +315,21 @@ const Home: NextPage = () => {
                   Anime, Studio Ghibli
                 </div>
               </div>
-              
               <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
                 <Image
-                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-10 shadow-lg"
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-4 shadow-lg sm:p-6 "
+                  src={img6}
+                  width={512}
+                  height={512}
+                  alt=""
+                />
+                <div className="absolute inset-0 z-10 flex items-end justify-center pb-2 text-2xl font-semibold text-white opacity-0 duration-300 hover:opacity-100">
+                  Passport Photo
+                </div>
+              </div>
+              <div className="relative mb-8 flex flex-col items-center justify-center px-4 hover:opacity-60 md:w-1/3">
+                <Image
+                  className="rounded border-2 border-solid border-black bg-[url('../assets/wooden.jpg')] bg-cover bg-origin-border p-4 shadow-lg sm:p-6 "
                   src={img5}
                   width={512}
                   height={512}
